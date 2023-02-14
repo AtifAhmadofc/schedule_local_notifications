@@ -8,7 +8,6 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'InfoValueClass.dart';
 import 'PaddedElevatedButton.dart';
 import 'main.dart';
-import 'package:timezone/data/latest_all.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 
 class HomePage extends StatefulWidget {
@@ -30,7 +29,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
 
-  bool _notificationsEnabled = false;
+  bool notificationsEnabled = false;
 
   @override
   void initState() {
@@ -50,7 +49,7 @@ class _HomePageState extends State<HomePage> {
           false;
 
       setState(() {
-        _notificationsEnabled = granted;
+        notificationsEnabled = granted;
       });
     }
   }
@@ -75,14 +74,15 @@ class _HomePageState extends State<HomePage> {
         sound: true,
         critical: true,
       );
-    } else if (Platform.isAndroid) {
+    }
+    else if (Platform.isAndroid) {
       final AndroidFlutterLocalNotificationsPlugin? androidImplementation =
       flutterLocalNotificationsPlugin.resolvePlatformSpecificImplementation<
           AndroidFlutterLocalNotificationsPlugin>();
 
       final bool? granted = await androidImplementation?.requestPermission();
       setState(() {
-        _notificationsEnabled = granted ?? false;
+        notificationsEnabled = granted ?? false;
       });
     }
   }
